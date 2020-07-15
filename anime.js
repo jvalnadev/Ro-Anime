@@ -4,7 +4,7 @@ const api = {
   base: 'https://animeland.appanimeplus.tk/videoweb/api.php?action=',
   // CDN para as imagens
   CDNUrl: 'https://cdn.appanimeplus.tk/img/',
-  CDNLocal: 'https://northern-relieved-trip.glitch.me/capa/',
+  CDNLocal: 'https://'+process.env.PROJECT_DOMAIN+'.glitch.me/capa/',
   categorias: ['Aventura', 'Ação', 'Comédia', 'Dublado', 'Ecchi', 'Escolar', 'Esporte', 'Fantasia', 'Filme', 'Harem', 'Josei', 'Magia', 'Mecha', 'Mistério', 'OVA', 'Poderes', 'Psicológico', 'Romance', 'Sci-Fi', 'Seinen', 'Shoujo', 'Shounen', 'Slice of Life', 'Sobrenatural', 'Suspense', 'Terror', 'Yaoi', 'Yuri'],
 
   ultimosVideos: 'latestvideos',
