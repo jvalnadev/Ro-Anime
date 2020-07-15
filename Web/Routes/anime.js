@@ -1,6 +1,8 @@
-var express = require('express')
-var router = express.Router()
+const express = require('express')
+const axios = require('axios')
+let router = express.Router()
 const {Api, Anime} = require('../../anime')
+const auth = require('../Middleware/auth');
 const api = new Api()
 /*
 api.buscar('tensei shitara').then(async animes => {
@@ -40,6 +42,18 @@ router.get('/', async function (req, res, next) {
 router.get('/novos', async function (req, res, next) {
   let latest = await api.getLatest()
   res.render('pages/novos.ejs',{latest})
+})
+router.get('/capa/:id', async function (req, res, next) {
+  if(req.params.id){
+    //
+    const response = await axios.get('https://cdn.appanimeplus.tk/img/'+req.params.id,  { responseType: 'arraybuffer' })
+    const buffer = Buffer.from(response.data, "utf-8")
+    res.writeHead(200, {
+      'Content-Type': 'image/png',
+      'Content-Length': buffer.length
+    });
+    res.end(buffer); 
+  }
 })
 
 module.exports = router
