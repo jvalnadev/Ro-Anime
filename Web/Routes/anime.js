@@ -2,25 +2,15 @@ const express = require('express')
 const axios = require('axios')
 let router = express.Router()
 const {Api, Anime} = require('../../anime')
-const auth = require('../Middleware/auth');
 const api = new Api()
-/*
-api.buscar('tensei shitara').then(async animes => {
-  let anime = animes[0]
-  console.log(animes)
-  await anime.info().then(info => {
-    console.log(info)
-  })
-  await anime.eps().then(eps=>{
-      console.log(eps.reverse()[0])
-  })
-})
-*/
+
 router.get('/', async function (req, res, next) {
   if(req.query.buscar){
     api.buscar(req.query.buscar).then(async animes => {
       if(animes != null){
         res.render('pages/buscar.ejs',{animes: animes, buscado: req.query.buscar})
+      }else{
+        res.render('pages/index.ejs',{erro: 'Nenhum anime encontrado'})
       }
     });
   }
@@ -31,12 +21,11 @@ router.get('/', async function (req, res, next) {
       let eps = await anime.eps()
       res.render('pages/eps.ejs',{info,eps})
     }else{
-      res.json({status: false, message: 'Anime invalido'})
+      res.render('pages/index.ejs',{erro: 'Anime invalido'})
     }
   }
   else{
-    res.render('pages/index.ejs',{erro: false, })
-    //res.json({status: false, message: 'Query.buscar invalido'})
+    res.render('pages/index.ejs',{erro: false})
   }
 })
 router.get('/novos', async function (req, res, next) {
