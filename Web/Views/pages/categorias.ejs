@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <title>Categorias - Ro-Anime</title>
+  <%- include('../partials/head.ejs'); %>
+  <link rel="canonical" href="https://robr.page/anime/categoria">
+  <style>input[type=text],select{width:100%;padding:12px 20px;margin:8px 0;display:inline-block;border:1px solid #ccc;border-radius:4px;box-sizing:border-box}input[type=submit]{width:100%;background-color:#00529b;color:#fff;padding:14px 20px;margin:8px 0;border:none;border-radius:4px;cursor:pointer}input[type=submit]:hover{background-color:#00529b}button{width:20%;background-color:#00529b;color:#fff;padding:14px 20px;margin:8px 0;border:none;border-radius:4px;cursor:pointer}button:hover{background-color:#00529b}</style>
+</head>
+
+<body>
+  <div align="center" class="absoluteCenter" style="background-color: rgba(229,228,249,.2);border-radius: 5px;">
+    <div id="derro"></div>
+    <img src="/s/icon.png"id="icon"alt='Icone Ro-Systems'>
+    <h2>Categorias</h2>
+    <div style="/* direction: inherit; */display: unset;flex-direction: column;/* flex-flow: row wrap; */justify-content:space-between;">
+    <% for(var i=0; i < categorias.length; i++) { %>
+      <button onclick="location.href = '/anime/c/<%- categorias[i] %>';"><%- categorias[i] %></button>
+    <% } %>
+    </div>
+    <%- include('../partials/footer.ejs'); %>
+</body>
+
+</html>

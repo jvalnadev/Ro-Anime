@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <title>Animes - Ro-Anime</title>
+  <link rel="canonical" href="https://robr.page/anime">
+  <%- include('../partials/head.ejs'); %>
+  <style>input[type=text],select{width:100%;padding:12px 20px;margin:8px 0;display:inline-block;border:1px solid #ccc;border-radius:4px;box-sizing:border-box}input[type=submit]{width:100%;background-color:#00529b;color:#fff;padding:14px 20px;margin:8px 0;border:none;border-radius:4px;cursor:pointer}input[type=submit]:hover{background-color:#00529b}button{width:100%;background-color:#00529b;color:#fff;padding:14px 20px;margin:8px 0;border:none;border-radius:4px;cursor:pointer}button:hover{background-color:#00529b}.grecaptcha-badge {display: none;}</style>
+</head>
+
+<body>
+  <div align="center" class="absoluteCenter">
+    <div id="derro">
+      <%if(erro != false){%>
+        <div class="isa_error" align="center"><b>Erro:</b><%=decodeURIComponent(erro) %></div>
+      <%}%>
+    </div>
+    <img src="/s/icon.png"id="icon"alt='Icone Ro-Systems'>
+    <h1>Ro-Anime</h1>
+    <h2>Busque por um anime.</h2>
+    <p></p>
+    <form method="POST" id="form">
+      <table>
+          <tr>
+          <td><label style="display: inline-flex;">Digite o nome<input id="busca" type="text" name="busca"></label></td>
+          </tr>
+          <tr>
+          <td colspan="2"><input id="enviar" type="submit" value="Buscar"></td>
+          </tr>
+      </table>
+    </form>
+    <script>
+      document
+      .getElementById("form")
+      .addEventListener("submit", function(e) {
+        e.preventDefault();
+        console.log(document.getElementById('busca').value)
+        if(document.getElementById('busca').value != ''){
+          window.location.href = "/?buscar="+encodeURIComponent(document.getElementById('busca').value);
+          console.log('tada')
+        }
+      });
+    </script>
+    <div style="display: inline-flex;">
+      <button onclick="location.href = '/novos';">Lista de Lançamentos</button>
+      <button onclick="location.href = '/categorias';">Categorias</button>
+      <!--<button onclick="pa()">Favoritos</button>-->
+    </div>
+    <%- include('../partials/footer.ejs'); %>
+</body>
+</html>

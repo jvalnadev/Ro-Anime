@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <title>Lançamentos - Ro-Anime</title>
+  <link rel="canonical" href="https://robr.page/anime/novos">
+  <%- include('../partials/head.ejs'); %>
+  <style>
+    button {width:100%;background-color:#00529b;color:white;padding:14px 20px;margin:8px 0;border:none;border-radius:4px;cursor:pointer;}button:hover{background-color:#00529b;}</style><script>function post(p, pa, m='post'){const f=document.createElement('form');f.method=m;f.action=p;for(const k in pa){if(pa.hasOwnProperty(k)){const h=document.createElement('input');h.type='hidden';h.name=k;h.value=pa[k];f.appendChild(h);}}document.body.appendChild(f);f.submit();}</script>
+</head>
+
+<body>
+  <div align="center" class="absoluteCenter" style="background-color: rgba(229,228,249,.2);border-radius: 5px;">
+    <div id="derro"></div>
+    <img src="/s/icon.png"id="icon"alt='Icone Ro-Systems'>
+    <h2>Lançamento encontrados</h2>
+    <p></p>
+    <table class="table table-inverse">
+        <thead>
+          <tr>
+            <th>Capa</th>
+            <th>Episodio</th>
+            <th>Links</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% for(var i=0; i < latest.length; i++) { %>
+        <tr>
+           <td><img align='left' style="width: 7vw;height: 9vw;" src='<%- latest[i].icon ? latest[i].icon : "/s/icon.png" %>' id="icon"alt='Thumbnail'></td>
+           <td><span onclick="location.href = '/anime/<%- latest[i].anime %>';"><%= latest[i].title %></span></td>
+            <td style="display: flex;">
+              <% if (latest[i].sd) { %>
+                <button onclick="javascript:window.location.href='<%- latest[i].sd %>'">SD</button>
+              <% } %>
+              <% if (latest[i].hd) { %>
+                <button onclick="javascript:window.location.href='<%- latest[i].hd %>'">HD</button>
+              <% } %>
+            </td>
+         </tr>
+        <% } %>
+        </tbody>
+    </table>
+    <%- include('../partials/footer.ejs'); %>
+</body>
+</html>

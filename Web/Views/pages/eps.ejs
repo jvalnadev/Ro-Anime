@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <title><%= info.title %> - Ro-Anime</title>
+  <meta charset="UTF-8">
+  <meta name="theme-color" content="#1e5799">
+  <meta name="twitter:image:src" content=<%= info.icon ? info.icon : "/s/icon.png" %> />
+  <meta property="og:image" content=<%= info.icon ? info.icon : "/s/icon.png" %> >
+  <meta property="og:site_name" content="Ro-Systems">
+  <meta name="description" content='<%= info.desc %>' >
+  <meta name="author" content="Fptbb, fp@robr.page">
+  <link rel="icon" href="/s/icon.png" sizes="128x128" type="image/webp">
+  <link rel="stylesheet" href="/s/estilo.css">
+  <meta name="viewport" content="width=device-width,initial-scale=0.5,maximum-scale=5,user-scalable=yes">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="HandheldFriendly" content="true">
+  <style>button,#comp{width:100%;background-color:#00529b;color:white;padding:14px 20px;margin:8px 0;border:none;border-radius:4px;cursor:pointer;}button:hover ,#comp:hover{background-color:#00529b;}input[type=text],select{width:100%;padding:12px 20px;margin:8px 0;display:inline-block;border:1px solid #ccc;border-radius:4px;box-sizing:border-box;text-align:center}input[type=submit]{width:100%;background-color:#00529b;color:white;padding:14px 20px;margin:8px 0;border:none;border-radius:4px;cursor:pointer;}input[type=submit]:hover{background-color:#00529b;}</style>
+  <script>function busca(){var e,t,n;for(e=document.getElementById("myFilter").value.toUpperCase(),t=document.getElementById("myItems").getElementsByClassName("card"),n=0;n<t.length;n++)t[n].querySelector(".card-header").innerText.toUpperCase().indexOf(e)>-1?t[n].style.display="":t[n].style.display="none"}</script>
+</head>
+
+<body >
+  <div align="center" class="absoluteCenter" style="background-color: rgba(229,228,249,.2);border-radius: 5px;">
+    <div id="derro"></div>
+    <div>
+      <img align='left' style="width: 13vw;height: 15vw;" src=<%= info.icon ? info.icon : "/s/icon.png" %> id="icon"alt='Thumbnail'>
+      <h2><%-info.title%> 
+      - Ano: <%- info.ano %></h2>
+      <p><b>Sinopse:</b> <%= info.desc %>
+      <br><b>Categorias:</b> <%- info.genres ? info.genres : `Sem Generos` %></p>
+      <div style="display: flex;">
+        <button onclick="co()" id="co">Compartilhar</button>
+        <button onclick="sp(this)" id="fav">Favoritar/Remover do Favoritos</button>
+      </div>
+    </div>
+    <br>
+    <div style="display: inline-flex;">
+      <label for="ep">Procure aqui um episodio especifico</label>
+      <input type="text" id="myFilter" class="form-control isa_info" onkeyup="busca()" placeholder="Numero">
+    </div>
+    <table class="table table-inverse">
+        <thead>
+          <tr>
+            <th>Ep</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody id="myItems">
+        <% for(var i=0; i < eps.length; i++) { %>
+         <tr class="card">
+         <td class="card-header"><span><%= eps[i].title %></span></td>
+            <% if (eps[i].sd) { %>
+              <td><button onclick="javascript:window.location.href='<%- eps[i].sd %>'">SD</button></td>
+            <% } %>
+            <% if (eps[i].hd) { %>
+              <td><button onclick="javascript:window.location.href='<%- eps[i].hd %>'">HD</button></td>
+            <% } %>
+         </tr>
+        <% } %>
+        </tbody>
+    </table>
+    <%- include('../partials/footer.ejs'); %>
+</body>
+
+</html>
