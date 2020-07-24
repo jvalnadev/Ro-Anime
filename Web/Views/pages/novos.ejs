@@ -26,7 +26,7 @@
         <% for(var i=0; i < latest.length; i++) { %>
         <tr>
            <td><img align='left' style="width: 7vw;height: 9vw;" src='<%- latest[i].icon ? latest[i].icon : "/s/icon.png" %>' id="icon"alt='Thumbnail'></td>
-           <td><span onclick="location.href = '/anime/<%- latest[i].anime %>';"><%= latest[i].title %></span></td>
+           <td><span onclick="location.href = '/anime/<%- latest[i].animeId %>';"><%= latest[i].title %></span></td>
             <td style="display: flex;">
               <% if (latest[i].sd) { %>
                 <button onclick="javascript:window.location.href='<%- latest[i].sd %>'">SD</button>

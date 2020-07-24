@@ -1,37 +1,7 @@
 const p = require('phin')
-const api = {
-  // Adicione a base em cada endpoint
-  base: 'https://animeland.appanimeplus.tk/videoweb/api.php?action=',
-  // CDN para as imagens
-  CDNUrl: 'https://cdn.appanimeplus.tk/img/',
-  CDNLocal: 'https://'+process.env.PROJECT_DOMAIN+'.glitch.me/capa/',
-  categorias: ['Aventura', 'Ação', 'Comédia', 'Dublado', 'Ecchi', 'Escolar', 'Esporte', 'Fantasia', 'Filme', 'Harem', 'Josei', 'Magia', 'Mecha', 'Mistério', 'OVA', 'Poderes', 'Psicológico', 'Romance', 'Sci-Fi', 'Seinen', 'Shoujo', 'Shounen', 'Slice of Life', 'Sobrenatural', 'Suspense', 'Terror', 'Yaoi', 'Yuri'],
-
-  ultimosVideos: 'latestvideos',
-  todosOsAnimes: 'all_categories',
-  animesPopulares: 'trendingcategory',
-  // Agora os mais complexos
-  busca: {
-    // Nesse concatene algo para buscar
-    anime: 'searchcategory&searchword=',
-    animeAlt: 'searchvideo&searchword=',
-    // Use uma categorias listada na array categorias
-    categorias: 'searchgenre&searchword=',
-
-    animeInfo: 'viewcategory&categoryid=',
-    animeEps: 'category_videos&category_id='
-  },
-  // Reporte o anime usando o videoid, retorna Array[0] == sucesso
-  report: 'reportvideo&videoid=',
-
-  // Dados pra teste
-  debug: {
-    categoryid: 33018,
-    videoid: 432815,
-    searchword: 'Tensei shitara',
-    image: 'ebf51cc89fabd1246021aa123704d1bd.jpg'
-  }
-}
+const api = JSON.parse(process.env.JSON)
+const cache = require('./cache')
+const save = false
 class Api {
   /**
    * Retorna uma array com animes novos
@@ -41,7 +11,20 @@ class Api {
    */
   constructor () {
     this.categories = api.categorias
+    this.cache = cache
   }
+
+  async init () {
+    await this.cache.init()
+    if(save == true){
+      let todos = await this.getAll()
+      await this.cache.setItem('animes.todos',todos)
+    }
+    //let todos = await this.cache.getItem('animes.todos')
+    //console.log(todos[0]);
+    return this;
+  }
+
   async getLatest () {
     const res = await p(`${api.base}${api.ultimosVideos}`)
     let final
@@ -65,25 +48,62 @@ class Api {
   async getAll () {
     const res = await p(`${api.base}${api.todosOsAnimes}`)
     let final
+    let final2 = []
 
     try {
       final = JSON.parse(res.body.toString())
     } catch (error) {
       final = error
     }
-    return final
+    if(final[0].response == 'No results found'){
+      return null
+    }else{
+      final.forEach(element => {
+        final2.push(new Anime(element))
+      })
+      return final2
+    }
   }
 
   async getPopular () {
     const res = await p(`${api.base}${api.animesPopulares}`)
     let final
-
+    let final2 = []
     try {
       final = JSON.parse(res.body.toString())
     } catch (error) {
       final = error
     }
-    return final
+    if(final[0].response == 'No results found'){
+      return null
+    }else{
+      final.forEach(element => {
+        final2.push(new Anime(element))
+      })
+      return final2
+    }
+  }
+  async listCategories (categorie) {
+    if(!categorie || !api.categorias.includes(categorie)){
+      return api.categorias
+    }else{
+      const res = await p(`${api.base}${api.busca.categorias}${categorie}`)
+      let final
+      let final2 = []
+      try {
+        final = JSON.parse(res.body.toString())
+      } catch (error) {
+        final = error
+      }
+      if(final[0].response == 'No results found'){
+        return null
+      }else{
+        final.forEach(element => {
+          final2.push(new Anime(element))
+        })
+        return final2
+      }
+    }
   }
 
   async report (videoid) {
@@ -122,14 +142,20 @@ class Api {
       return final2
     }
   }
+  async getCapa (imageid) {
+    if (!imageid) return { status: false, message: 'imageid não existe' }
+    const response = await p({url: `${api.CDNUrl}${imageid}`, parse: 'none'})
+    return {body: response.body,head: {'content-type': response.headers['content-type'],'content-length': response.headers['content-length']}}
+    
+  }
 }
 class Anime {
   constructor (data) {
-    this.categoryid = data.category_id
+    this.categoryid = data.category_id || data.id
     this.title = data.category_name
     if(data.category_icon){
-      this.icon = `${api.CDNLocal}${data.category_icon}`
-      this.iconOld = `${api.CDNUrl}${data.category_icon}`
+      this.icon = `${api.CDNCF}${this.categoryid}`
+      this.iconLocal = `${api.CDNLocal}${this.categoryid}`
     }
     if(data.category_desc){
       this.desc = data.category_desc
@@ -200,20 +226,12 @@ class Ep {
 class Latest {
   constructor (data) {
     this.id = data.video_id
+    this.animeId = data.category_id
     this.title = data.title
-    this.icon = `${api.CDNLocal}${data.image}`
-    this.iconOld = `${api.CDNUrl}${data.image}`
+    this.icon = `${api.CDNCF}${this.animeId}`
+    this.iconLocal = `${api.CDNLocal}${data.animeId}`
     this.sd = data.location
     this.hd = data.sdlocation
   }
 }
 module.exports = { Api, Anime }
-
-/*
-.buscar('tensei shitara').then(animes => {
-  let anime = animes[0]
-  anime.info().then(info => {
-    functions.embed(`Nome: ${info.category_name}\nGeneros: ${info.genres}\nAno: ${info.ano}\nDescrição: ${info.category_desc}`,'sucesso',call)
-  })
-})
-*/
