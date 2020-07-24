@@ -3,7 +3,6 @@
 
 <head>
   <title><%- categoria %> - Ro-Anime</title>
-  <link rel="canonical" href="https://robr.page/anime?c=<%- categoria %>">
   <%- include('../partials/head.ejs'); %>
   <style>
     button {width:100%;background-color:#00529b;color:white;padding:14px 20px;margin:8px 0;border:none;border-radius:4px;cursor:pointer;}button:hover{background-color:#00529b;}</style><script>function post(p, pa, m='post'){const f=document.createElement('form');f.method=m;f.action=p;for(const k in pa){if(pa.hasOwnProperty(k)){const h=document.createElement('input');h.type='hidden';h.name=k;h.value=pa[k];f.appendChild(h);}}document.body.appendChild(f);f.submit();}</script>
@@ -18,7 +17,6 @@
     <table class="table table-inverse">
         <thead>
           <tr>
-            <th>Capa</th>
             <th>Anime</th>
             <th>Link</th>
           </tr>
@@ -26,9 +24,8 @@
         <tbody>
         <% for(var i=0; i < data.length; i++) { %>
          <tr>
-           <td><img align='left' style="width: 7vw;height: 9vw;" src='<%- data[i].category_image ? `https://robr.page/s/anime/${data[i].crypt}.png` : "/s/icon.png" %>' id="icon"alt='Thumbnail'></td>
-           <td><span onclick="location.href = '/anime/<%- data[i].crypt %>';"><%= data[i].category_name %></span></td>
-           <td><button onclick="location.href = '/anime/<%- data[i].crypt %>';">Assistir</button></td>
+           <td><span onclick="location.href = '/anime/<%- data[i].categoryid %>';"><%= data[i].title %></span></td>
+           <td><button onclick="location.href = '/anime/<%- data[i].categoryid %>';">Assistir</button></td>
          </tr>
         <% } %>
         </tbody>

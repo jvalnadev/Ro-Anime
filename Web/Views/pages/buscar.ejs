@@ -27,8 +27,8 @@
         <% for(var i=0; i < animes.length; i++) { %>
          <tr>
            <td><img align='left' style="width: 7vw;height: 9vw;" src='<%- animes[i].icon ? animes[i].icon : "/s/icon.png" %>' id="icon"alt='Thumbnail'></td>
-           <td><span onclick="location.href = '/?anime=<%- animes[i].categoryid %>';"><%= animes[i].title %></span></td>
-           <td><button onclick="location.href = '/?anime=<%- animes[i].categoryid %>';">Assistir</button></td>
+           <td><span onclick="location.href = '/anime/<%- animes[i].categoryid %>';"><%= animes[i].title %></span></td>
+           <td><button onclick="location.href = '/anime/<%- animes[i].categoryid %>';">Assistir</button></td>
          </tr>
         <% } %>
         </tbody>
