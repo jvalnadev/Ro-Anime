@@ -11,6 +11,11 @@ app.set('env', 'production')
 app.disable('Transfer-Encoding')
 app.disable('X-Powered-By')
 
+app.use ((req, res, next) => {
+    res.locals.url = process.env.url;
+    next()
+});
+
 // Adquire rotas
 require('./Routes')(app)
 

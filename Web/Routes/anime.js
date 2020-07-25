@@ -53,10 +53,10 @@ new Api().init().then(api=>{
       if(typeof data[0] == 'string'){
         res.redirect('/categorias')
       }else{
-        console.log(data)
         res.render('pages/categoria_buscar.ejs',{categoria: req.query.c, data})
       }
     }
   })
 })
+
 module.exports = router
