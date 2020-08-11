@@ -58,5 +58,4 @@ new Api().init().then(api=>{
     }
   })
 })
-
 module.exports = router
