@@ -9,7 +9,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "rodar": "node main.js",
-    "start": "node main.js"
+    "start": "node main.js",
+    "deploy": "git add . && git commit -am \"Auto Sync\" && git push -q github master",
+    "github": "git pull github master"
   },
   "author": "Fptbb",
   "license": "ISC",
