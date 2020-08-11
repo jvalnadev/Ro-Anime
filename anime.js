@@ -185,7 +185,7 @@ class Anime {
     }
     
   }
-
+ 
   async eps () {
     if (!this.categoryid) return { status: false, message: 'categoryid não existe' }
     const res = await p(`${api.base}${api.busca.animeEps}${this.categoryid}`)
