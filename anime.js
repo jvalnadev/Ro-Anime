@@ -233,5 +233,7 @@ class Latest {
     this.sd = data.location
     this.hd = data.sdlocation
   }
+  
+  
 }
 module.exports = { Api, Anime }
