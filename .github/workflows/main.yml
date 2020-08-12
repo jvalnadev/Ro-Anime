@@ -1,6 +1,0 @@
-- name: eslint + fix
-  uses: getsentry/action-eslint-fix@v1
-
-
-
-
