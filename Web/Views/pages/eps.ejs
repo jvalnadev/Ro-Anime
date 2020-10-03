@@ -5,6 +5,8 @@
   <title><%= info.title %> - Ro-Anime</title>
   <link rel="canonical" href="<%-url%>/anime/<%-info.categoryid%>">
   <%- include('../partials/head.ejs'); %>
+  <meta property="og:image" content=<%= info.icon ? info.icon : "/s/icon.png" %>>
+	<meta name="thumbnail" content=<%= info.icon ? info.icon : "/s/icon.png" %> />
   <meta name="description" content='<%= info.desc %>' >
   <style>button,#comp{width:100%;background-color:#00529b;color:white;padding:14px 20px;margin:8px 0;border:none;border-radius:4px;cursor:pointer;}button:hover ,#comp:hover{background-color:#00529b;}input[type=text],select{width:100%;padding:12px 20px;margin:8px 0;display:inline-block;border:1px solid #ccc;border-radius:4px;box-sizing:border-box;text-align:center}input[type=submit]{width:100%;background-color:#00529b;color:white;padding:14px 20px;margin:8px 0;border:none;border-radius:4px;cursor:pointer;}input[type=submit]:hover{background-color:#00529b;}</style>
   <script>function busca(){var e,t,n;for(e=document.getElementById("myFilter").value.toUpperCase(),t=document.getElementById("myItems").getElementsByClassName("card"),n=0;n<t.length;n++)t[n].querySelector(".card-header").innerText.toUpperCase().indexOf(e)>-1?t[n].style.display="":t[n].style.display="none"}</script>
