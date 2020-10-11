@@ -28,7 +28,6 @@
           </tr>
       </table>
     </form>
-    <small><a href="/aviso">Termos e Politicas de privacidade</a></small>
     <script>
       document
       .getElementById("form")
@@ -42,10 +41,11 @@
       });
     </script>
     <div style="display: inline-flex;">
-      <button onclick="location.href = '/novos';">Lista de Lançamentos</button>
+      <button >Lista de Lançamentos</button>
       <button onclick="location.href = '/categorias';">Categorias</button>
       <!--<button onclick="pa()">Favoritos</button>-->
     </div>
+    <small onclick="location.href = '/aviso';">Termos e Politicas de privacidade</small>
     <%- include('../partials/footer.ejs'); %>
 </body>
 </html>
