@@ -57,5 +57,9 @@ new Api().init().then(api=>{
       }
     }
   })
+
+  router.get('/termos',(req,res)=>{
+    res.render('pages/termos.ejs')
+  })
 })
 module.exports = router
