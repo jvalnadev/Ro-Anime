@@ -36,12 +36,11 @@
         console.log(document.getElementById('busca').value)
         if(document.getElementById('busca').value != ''){
           window.location.href = "/?buscar="+encodeURIComponent(document.getElementById('busca').value);
-          console.log('tada')
         }
       });
     </script>
     <div style="display: inline-flex;">
-      <button >Lista de Lançamentos</button>
+      <button onclick="location.href = '/novos';">Lista de Lançamentos</button>
       <button onclick="location.href = '/categorias';">Categorias</button>
       <!--<button onclick="pa()">Favoritos</button>-->
     </div>
